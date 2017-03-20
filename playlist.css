@@ -7,6 +7,9 @@
   float:left;
 }
 .addsong {
-  float: right; 
+  float: right;
   margin: 50px;
+}
+.table {
+  width: 100%; 
 }
