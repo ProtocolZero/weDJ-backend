@@ -1,0 +1,33 @@
+{
+  "name": "wedj-backend",
+  "version": "1.0.0",
+  "description": "Back-end for weDJ web application",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "helmet": "^3.5.0",
+    "knex": "^0.12.8",
+    "morgan": "^1.8.1",
+    "pg": "^6.1.5"
+  },
+  "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProtocolZero/weDJ-backend.git"
+  },
+  "author": "ProtocolZero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProtocolZero/weDJ-backend/issues"
+  },
+  "homepage": "https://github.com/ProtocolZero/weDJ-backend#readme"
+}
