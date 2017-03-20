@@ -3,7 +3,7 @@ exports.up = (knex) => {
   return knex.schema.createTable('playlist_user', (playlist_user) => {
     playlist_user.increments('id');
     playlist_user.string('role');
-    playlist_user.string('u_id').references('email').inTable('user');
+    playlist_user.string('u_id').references('email').inTable('app_user');
     playlist_user.integer('p_id').references('id').inTable('playlist');
   });
 };
