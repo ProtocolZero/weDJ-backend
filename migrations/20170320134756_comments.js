@@ -5,7 +5,7 @@ exports.up = (knex) => {
     comment.string('body');
     comment.string('u_id').references('email').inTable('user');
     comment.integer('p_id').references('id').inTable('playlist');
-    comment.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
+    comment.timestamp('date_created').defaultTo(knex.fn.now()).notNullable();
   });
 };
 
