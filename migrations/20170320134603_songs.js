@@ -5,7 +5,7 @@ exports.up = (knex) => {
     song.string('name');
     song.string('artist_name');
     song.string('album_name');
-    song.string('album_URL');
+    song.string('album_img');
     song.string('URL');
   });
 };
