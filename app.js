@@ -5,6 +5,8 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
 
+const playlistSong = require('./routes/playlist_song');
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -13,6 +15,9 @@ app.use(logger('dev'));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes
+app.use('/playlist_song', playlistSong);
 
 // Listening port
 app.listen(PORT, () => {
