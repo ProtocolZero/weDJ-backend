@@ -16,6 +16,7 @@ const passport = require('./passport');
 const facebook = require('./routes/facebook')
 
 const playlistSong = require('./routes/playlist_song');
+const role = require('./routes/role.js');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -38,7 +39,7 @@ app.use('/playlist', playlist);
 app.use('/playlist_song', playlistSong);
 
 app.use('/song', song);
-
+app.use('/role', role);
 app.use('/facebook', facebook);
 
 
