@@ -25,3 +25,5 @@ router.get('/login/facebook/return',
 //   function(req, res){
 //     res.render('profile', { user: req.user });
 //   });
+
+module.exports = router
