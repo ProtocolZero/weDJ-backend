@@ -5,6 +5,7 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
 
+const song = require('./routes/song');
 const playlist = require('./routes/playlist');
 const playlistSong = require('./routes/playlist_song');
 
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 app.use('/playlist', playlist);
 app.use('/playlist_song', playlistSong);
-
+app.use('/song', song);
 // Listening port
 app.listen(PORT, () => {
   // eslint-disable-next-line
