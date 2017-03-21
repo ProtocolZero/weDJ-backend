@@ -20,7 +20,7 @@ function createNewPlaylistUser(newUserObj) {
 }
 
 function updateUserForPlaylist(id, updateObj) {
-  return knex('playlist_user').where('p_id', id).update(updateObj, '*')
+  return knex('playlist_user').where('id', id).update(updateObj, '*')
 }
 
 function deleteUserForPlaylist(id) {
@@ -28,6 +28,7 @@ function deleteUserForPlaylist(id) {
 }
 
 //routes
+
 //get all roles
 router.get('/', (req, res) => {
   getAllRoles().then(result => {
@@ -47,7 +48,7 @@ router.get('/:id', (req, res) => {
 })
 
 //get all users for a specific playlist
-router.get('/:id', (req, res) => {
+router.get('/playlist/:id', (req, res) => {
   const id = Number(req.params.id)
   getUsersForPlaylist(id).then(result => {
     res.json(result)
@@ -57,5 +58,38 @@ router.get('/:id', (req, res) => {
     res.status(503).send(err.message)
   })
 })
+//add user to a playlist
+router.post('/', (req, res) => {
+  createNewPlaylistUser(req.body).then(newUser => {
+    res.json(newUser)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(503).send(err.message)
+  })
+})
+//update user in a playlist
+router.put('/:id', (req, res) => {
+  const id = Number(req.params.id)
+  updateUserForPlaylist(id, req.body).then(updatedUser => {
+    res.json(updatedUser)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(503).send(err.message)
+  })
+})
+//delete user from playlist
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  deleteUserForPlaylist(id).then(() => {
+    res.status(204).send()
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(503).send(err.message)
+  })
+})
+
 
 module.exports = router
