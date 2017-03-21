@@ -20,12 +20,12 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({
+app.use(expressSession({
   secret: 'mouse dog',
   saveUninitialized: true,
   resave: false
 }));
-app.use(passport.initilaize());
+app.use(passport.initialize());
 app.use(passport.session());
 // Routes
 app.use('/playlist_song', playlistSong);
