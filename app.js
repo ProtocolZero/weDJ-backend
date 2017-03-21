@@ -4,15 +4,20 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
-<<<<<<< HEAD
-var playlist = require('./routes/playlist.js')
-var user = require('./routes/user.js')
-=======
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const expressSession = require('express-session');
+const passport = require('./passport');
 
+// Route files
+const playlist = require('./routes/playlist.js');
+const user = require('./routes/user.js');
+const song = require('./routes/song');
 const playlist = require('./routes/playlist');
+const facebook = require('./routes/facebook');
 const playlistSong = require('./routes/playlist_song');
+const role = require('./routes/role.js');
 
->>>>>>> c7fd004b3df41c69f462e689b83727c7d2237563
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -21,15 +26,22 @@ app.use(logger('dev'));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-<<<<<<< HEAD
-app.use('/user', user)
-app.use('/playlist', playlist)
-=======
+app.use(cookieParser());
+app.use(session({
+  secret: 'mouse dog',
+  saveUninitialized: true,
+  resave: false
+}));
+app.use(passport.initilaize());
+app.use(passport.session());
 
 // Routes
+app.use('/facebook', facebook);
 app.use('/playlist', playlist);
 app.use('/playlist_song', playlistSong);
->>>>>>> c7fd004b3df41c69f462e689b83727c7d2237563
+app.use('/song', song);
+app.use('/role', role);
+app.use('/user', user);
 
 // Listening port
 app.listen(PORT, () => {
