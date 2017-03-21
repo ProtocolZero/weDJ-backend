@@ -4,10 +4,10 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const expressSession = require('express-session');
 const passport = require('./passport');
+const cookieParser = require('cookie-parser');
 
 // Route files
 const user = require('./routes/user');
