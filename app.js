@@ -10,18 +10,18 @@ const expressSession = require('express-session');
 const passport = require('./passport');
 
 // Route files
-const playlist = require('./routes/playlist.js');
-const user = require('./routes/user.js');
+const user = require('./routes/user');
 const song = require('./routes/song');
 const playlist = require('./routes/playlist');
 const facebook = require('./routes/facebook');
 const playlistSong = require('./routes/playlist_song');
-const role = require('./routes/role.js');
+const role = require('./routes/role');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(logger('dev'));
 app.use(helmet());
 app.use(bodyParser.json());
