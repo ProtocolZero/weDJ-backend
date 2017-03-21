@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const express = require('express');
-
+var playlist = require('./routes/playlist.js')
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(logger('dev'));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use('/playlist', playlist)
 // Listening port
 app.listen(PORT, () => {
   // eslint-disable-next-line
