@@ -8,7 +8,14 @@ function getAllRoles() {
 }
 
 function getPlaylistByUser(id) {
-  return knex('playlist_user').where('u_id', id)
+  return knex('playlist_user')
+  .leftJoin('playlist', 'playlist_user.p_id', 'playlist.id')
+  .where('u_id', id)
+  .select(
+    'playlist.name as title',
+    'playlist_user.role as role',
+    'playlist.id as id'
+  )
 }
 
 function getUsersForPlaylist(id) {
