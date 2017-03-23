@@ -22,7 +22,7 @@ exports.seed = (knex) => {
         },
         {
           body: 'This is awful!',
-          u_id: 'john.shepler.jr@gmail.com',
+          u_id: 'john.sheplerjr@gmail.com',
           p_id: 4,
         },
       ]);
