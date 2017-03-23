@@ -41,7 +41,7 @@ app.use(passport.session());
 app.use('/facebook', facebook);
 app.use('/playlist', playlist);
 app.use('/playlist_song', playlistSong);
-app.use('/playlist_user', playlistUser);
+
 app.use('/song', song);
 app.use('/role', role);
 app.use('/user', user);
