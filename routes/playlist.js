@@ -5,16 +5,16 @@ var knex = require('../db/knex')
 function play(){
     return knex('playlist')
 }
-// CREATE 
+// CREATE
     router.post('/', function (req, res){
         play().insert({
             name: req.body.name
         })
-        .then(function(){
-            res.sendStatus(201)
+        .then(function(result){
+            res.sendStatus(result)
         })
-    }) 
-// READ 
+    })
+// READ
     router.get('/', function (req, res){
        play().select().then(function (result){
            res.send(result)
@@ -28,7 +28,7 @@ function play(){
             res.send(result)
         })
     })
-// UPDATE 
+// UPDATE
 router.put('/:id', function (req, res){
     play().where('id', req.params.id)
     .update({
@@ -40,14 +40,14 @@ router.put('/:id', function (req, res){
     })
 })
 
-// DELETE 
+// DELETE
 router.delete('/:id', function (req, res){
     play().where('id', req.params.id).del()
     .then(function (result){
-        res.send(201); 
+        res.send(201);
     }).catch(err => {
         console.log(err)
     })
 })
 
-module.exports = router 
+module.exports = router
