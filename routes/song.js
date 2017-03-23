@@ -14,9 +14,10 @@ router.get('/:id', (req, res) => {
   knex('song')
   .where('id', req.params.id)
   .first()
-  .then(function (data) {
-    res.json(data)
-  }
+  .then((song) => {
+    res.json(song)
+  })
+
 });
 
 // Post new song
