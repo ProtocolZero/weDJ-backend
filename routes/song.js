@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
   .returning('*')
   .then(function (data) {
     res.json(data)
-  }
+  })
 });
 
 // Update song
