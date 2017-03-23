@@ -11,23 +11,18 @@ router.get('/', (req, res) => {
 
 // Get one song
 router.get('/:id', (req, res) => {
-  const id = req.params.id;
   knex('song')
-  .where('id', id)
-  .then((song) => {
-    res.json(song);
-  });
+  .where('id', req.params.id)
+  .first()
+  .then(res.json)
 });
 
 // Post new song
 router.post('/', (req, res) => {
-  const song = req.body;
   knex('song')
-  .insert(song)
+  .insert(req.body)
   .returning('*')
-  .then((newSong) => {
-    res.json(newSong);
-  });
+  .then(res.json)
 });
 
 // Update song
