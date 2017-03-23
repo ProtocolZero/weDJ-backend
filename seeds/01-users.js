@@ -10,7 +10,7 @@ exports.seed = (knex) => {
           username: 'rynj',
         },
         {
-          email: 'john.shepler.jr@gmail.com',
+          email: 'john.sheplerjr@gmail.com',
           username: 'J',
         },
         {

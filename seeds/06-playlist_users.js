@@ -12,7 +12,7 @@ exports.seed = (knex) => {
         },
         {
           role: 'owner',
-          u_id: 'john.shepler.jr@gmail.com',
+          u_id: 'john.sheplerjr@gmail.com',
           p_id: 2,
         },
         {
@@ -32,7 +32,7 @@ exports.seed = (knex) => {
         },
         {
           role: 'collaborator',
-          u_id: 'john.shepler.jr@gmail.com',
+          u_id: 'john.sheplerjr@gmail.com',
           p_id: 4,
         },
         {
