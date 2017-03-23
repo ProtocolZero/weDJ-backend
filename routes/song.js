@@ -17,7 +17,6 @@ router.get('/:id', (req, res) => {
   .then((song) => {
     res.json(song)
   })
-
 });
 
 // Post new song

@@ -11,7 +11,7 @@ function play(){
             name: req.body.name
         })
         .then(function(result){
-            res.sendStatus(result)
+            res.json(result)
         })
     })
 // READ
