@@ -31,7 +31,7 @@ function updateUserForPlaylist(id, updateObj) {
 }
 
 function deleteUserForPlaylist(id) {
-  return knex('playlist_user').where('p_id', id).del()
+  return knex('playlist_user').where('id', id).del()
 }
 
 //routes
