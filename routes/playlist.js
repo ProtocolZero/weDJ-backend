@@ -10,9 +10,9 @@ function play(){
         play()
 				.insert({
             name: req.body.name
-        })
-				.returning('id')
+        }, 'id')
         .then(function(result){
+					console.log(result)
             res.json(result)
         })
     })
