@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   knex('song')
   .insert(req.body)
-  .returning('*')
+  .returning('id')
   .then(function (data) {
     res.json(data)
   })
