@@ -7,9 +7,11 @@ function play(){
 }
 // CREATE
     router.post('/', function (req, res){
-        play().insert({
+        play()
+				.insert({
             name: req.body.name
         })
+				.returning('id')
         .then(function(result){
             res.json(result)
         })
