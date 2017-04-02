@@ -1,29 +1,25 @@
-const passport = require('passport');
-const express = require('express');
-const Strategy = require('passport-facebook').Strategy;
-
-
-
-passport.use(new Strategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/login/facebook/return'
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    // In this example, the user's Facebook profile is supplied as the user
-    // record.  In a production-quality application, the Facebook profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    return cb(null, profile);
-  }));
-
-  passport.serializeUser(function(user, cb) {
-    cb(null, user);
+var Auth0Strategy = require('passport-auth0');
+var passport = require('passport')
+var strategy = new Auth0Strategy({
+    domain:       process.env.AUTH0_DOMAIN,
+    clientID:     process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    callbackURL:  process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
+  }, function(accessToken, refreshToken, extraParams, profile, done) {
+    // accessToken is the token to call Auth0 API (not needed in the most cases)
+    console.log(profile)
+    // extraParams.id_token has the JSON Web Token
+    // profile has all the information from the user
+    return done(null, profile);
   });
 
-  passport.deserializeUser(function(obj, cb) {
-    cb(null, obj);
-  });
+passport.use(strategy);
 
-  module.exports = passport
+// This can be used to keep a smaller payload
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
