@@ -19,7 +19,7 @@ function getPlaylistSong(id) {
   return knex('playlist_song').where('id', id);
 }
 function getPlaylistSongsByPlaylistID(id) {
-  return knex('playlist_song').where('p_id', id);
+  return knex.select().from('playlist_song').join('song', 'playlist_song.s_id', 'song.id').where('p_id', id);
 }
 function getPlaylistSongsBySongID(id) {
   return knex('playlist_song').where('s_id', id);
