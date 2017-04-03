@@ -1,7 +1,7 @@
 {
-  "name": "wedj-backend",
+  "name": "booksbackend",
   "version": "1.0.0",
-  "description": "Back-end for weDJ web application",
+  "description": "Back-end for books",
   "dependencies": {
     "body-parser": "^1.17.1",
     "connect-ensure-login": "^0.1.1",
@@ -16,7 +16,6 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
-    "passport-facebook": "^2.1.1",
     "pg": "^6.1.5"
   },
   "devDependencies": {
@@ -35,7 +34,7 @@
   "author": "ProtocolZero",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ProtocolZero/weDJ-backend/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/ProtocolZero/weDJ-backend#readme"
+  "homepage": "
 }
