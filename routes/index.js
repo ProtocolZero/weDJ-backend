@@ -16,9 +16,9 @@ router.get('/logout', function(req, res){
 
 // Perform the final stage of authentication and redirect to '/user'
 router.get('/callback',
-  passport.authenticate('auth0', { failureRedirect: 'http://localhost:5000/' }),
+  passport.authenticate('auth0', { failureRedirect: 'http://wedj-youtube.firebaseapp.com/' }),
   function(req, res) {
     console.log(req.user)
-    res.redirect(req.session.returnTo || 'http://localhost:5000/dashboard.html');
+    res.redirect(req.session.returnTo || 'https://wedj-youtube.firebaseapp.com/dashboard.html');
   });
 module.exports = router
