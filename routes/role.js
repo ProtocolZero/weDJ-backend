@@ -2,15 +2,26 @@ const router = require('express').Router()
 const knex = require('../db/knex')
 
 //Queries
+var jwt = require('express-jwt')
+function fromHeaderOrQuerystring (req) {
+  console.log(req.headers)
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    console.log(req.headers.authorization.split(' ')[1])
+      return req.headers.authorization.split(' ')[1];
+  } else if (req.query && req.query.token) {
+    return req.query.token;
+  }
+  return null;
+}
 
 function getAllRoles() {
   return knex('playlist_user')
 }
 
-function getPlaylistByUser(id) {
+function getPlaylistByUser(req, res, id) {
   return knex('playlist_user')
   .leftJoin('playlist', 'playlist_user.p_id', 'playlist.id')
-  .where('u_id', id)
+  .where('u_id', req.user.email)
   .select(
     'playlist.name as title',
     'playlist_user.role as role',
@@ -26,8 +37,8 @@ function createNewPlaylistUser(newUserObj) {
   return knex('playlist_user').insert(newUserObj).returning('*')
 }
 
-function updateUserForPlaylist(id, updateObj) {
-  return knex('playlist_user').where('id', id).update(updateObj, '*')
+function updateUserForPlaylist(res, req, id, updateObj) {
+  return knex('playlist_user').where({'id': id, 'u_id': req.user.email}).update(updateObj, '*')
 }
 
 function deleteUserForPlaylist(id) {
@@ -37,15 +48,25 @@ function deleteUserForPlaylist(id) {
 //routes
 
 //get all roles
-router.get('/', (req, res) => {
+router.get('/', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), (req, res) => {
+  if (req.user.admin){
   getAllRoles().then(result => {
     res.json(result)
   })
+} else {res.sendStatus(404)}
 })
 //get all playlists for a specific user
-router.get('/:id', (req, res) => {
+router.get('/:id', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), (req, res) => {
   const id = req.params.id
-  getPlaylistByUser(id).then(result => {
+  getPlaylistByUser(req, res, id).then(result => {
     res.json(result)
   })
   .catch(err => {
@@ -55,18 +76,34 @@ router.get('/:id', (req, res) => {
 })
 
 //get all users for a specific playlist
-router.get('/playlist/:id', (req, res) => {
+router.get('/playlist/:id', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), (req, res) => {
   const id = Number(req.params.id)
-  getUsersForPlaylist(id).then(result => {
-    res.json(result)
+  knex.select('u_id').from('playlist_user').where({'playlist_user.u_id': req.user.email, 'playlist_user.p_id': id})
+  .then(function(data){
+    if (data.length > 0){
+      getUsersForPlaylist(id).then(result => {
+        res.json(result)
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(503).send(err.message)
+      })
+    } else {
+      res.sendStatus(404)
+    }
   })
-  .catch(err => {
-    console.log(err)
-    res.status(503).send(err.message)
-  })
+
 })
 //add user to a playlist
-router.post('/', (req, res) => {
+router.post('/', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), (req, res) => {
   createNewPlaylistUser(req.body).then(newUser => {
     res.json(newUser)
   })
@@ -76,9 +113,13 @@ router.post('/', (req, res) => {
   })
 })
 //update user in a playlist
-router.put('/:id', (req, res) => {
+router.put('/:id', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), (req, res) => {
   const id = Number(req.params.id)
-  updateUserForPlaylist(id, req.body).then(updatedUser => {
+  updateUserForPlaylist(res, req, id, req.body).then(updatedUser => {
     res.json(updatedUser)
   })
   .catch(err => {
@@ -87,9 +128,13 @@ router.put('/:id', (req, res) => {
   })
 })
 //delete user from playlist
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), (req, res) => {
   const id = req.params.id
-  deleteUserForPlaylist(id).then(() => {
+  deleteUserForPlaylist(res, req, id).then(() => {
     res.status(204).send()
   })
   .catch(err => {
