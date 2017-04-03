@@ -19,7 +19,7 @@ function getPlaylistSong(id) {
   return knex('playlist_song').where('id', id);
 }
 function getPlaylistSongsByPlaylistID(id) {
-  return knex.select().from('playlist_song').join('song', 'playlist_song.s_id', 'song.id').where('p_id', id);
+  return knex.select('playlist_song.id', 'playlist_song.p_id', 'playlist_song.likes', 'playlist_song.dislikes', 'playlist_song.song_order', 'playlist_song.s_id', 'song.URL', 'song.name', 'song.album_img').from('playlist_song').join('song', 'playlist_song.s_id', 'song.id').where('p_id', id);
 }
 function getPlaylistSongsBySongID(id) {
   return knex('playlist_song').where('s_id', id);
