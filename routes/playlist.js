@@ -20,20 +20,33 @@ function fromHeaderOrQuerystring (req) {
   return null;
 }
 // CREATE
-    router.post('/', function (req, res){
-        play().insert({
+    router.post('/', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), function (req, res){
+        play()
+				.insert({
             name: req.body.name
         }).returning('id')
         .then(function(result){
             res.send({'id':result[0]})
+
         })
     })
 // READ
-    router.get('/',  function (req, res){
-
+    router.get('/', jwt({
+  secret: process.env.AUTH0_CLIENT_SECRET,
+  credentialsRequired: true,
+  getToken: fromHeaderOrQuerystring
+}), function (req, res){
+  if (req.user.admin) {
        play().select().then(function (result){
            res.send(result)
        })
+  } else {
+    res.sendStatus(404)
+  }
     })
 
     router.get('/:id', jwt({
