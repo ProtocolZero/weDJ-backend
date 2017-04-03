@@ -3,7 +3,7 @@ require('dotenv').config();
 var passport = require('passport');
 // const path = require('path');
 var corsOptions = {
-  origin: 'https://wedj-81dc5.firebaseapp.com',
+  origin: 'https://wedj-youtube.firebaseapp.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 const router = require('express').Router()
