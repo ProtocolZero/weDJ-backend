@@ -71,7 +71,7 @@ router.put('/:id', jwt({
   .where({'song.id': req.params.id, 'playlist_user.u_id': req.user.email})
   .then((id)=>{
 if (id.length > 0){
-  knex('song').update(song, '*')
+  knex('song').update(song).where('id', req.params.id)
   .then((updatedSong) => {
     res.json(updatedSong);
   });
