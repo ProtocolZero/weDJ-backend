@@ -20,11 +20,7 @@ function fromHeaderOrQuerystring (req) {
   return null;
 }
 // CREATE
-    router.post('/', jwt({
-  secret: process.env.AUTH0_CLIENT_SECRET,
-  credentialsRequired: true,
-  getToken: fromHeaderOrQuerystring
-}), function (req, res){
+    router.post('/', function (req, res){
         play()
 				.insert({
             name: req.body.name
