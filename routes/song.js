@@ -53,7 +53,7 @@ router.post('/', jwt({
 
   knex('song')
   .insert(req.body)
-  .returning('id')
+  .returning('*')
   .then(function (data) {
     res.json(data)
   })
