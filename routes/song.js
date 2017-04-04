@@ -37,7 +37,7 @@ router.get('/:id', jwt({
   .where({'song.id': req.params.id, 'playlist_user.u_id': req.user.email})
   .then((song) => {
     if (song.length > 0 ){
-    res.json(song)
+    res.json(song[0])
   } else {
     res.sendStatus(404)
   }
